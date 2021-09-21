@@ -1,0 +1,16 @@
+.nav {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.nav ul {
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	list-style: none;
+	font-weight: 600;
+	color: #451e94;
+}
