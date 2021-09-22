@@ -12,7 +12,7 @@ export default function Home() {
 					content="NextJS and React development, programming"
 				/>
 			</Head>
-			<h1>from dastich_fantastich_r</h1>
+			<h1>Hello from Home Page</h1>
 		</div>
 	);
 }

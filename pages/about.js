@@ -10,7 +10,11 @@ export default function About() {
 					content="NextJS and React development, programming"
 				/>
 			</Head>
-			<h1>from About page</h1>
+			<meta
+				name="keywords"
+				content="NextJS and React development, programming"
+			/>
+			<h1>Hello from About page</h1>
 		</div>
 	);
 }
