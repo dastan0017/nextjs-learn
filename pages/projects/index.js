@@ -1,22 +1,9 @@
 import Head from "next/head";
-import {ApolloClient, InMemoryCache, gql, useQuery} from "@apollo/client";
+import {ApolloClient, InMemoryCache, gql} from "@apollo/client";
+import styles from "../../styles/Layout.module.css";
 
-const GET_PROJECTS = gql`
-	query GetProjects {
-		projects {
-			id
-			title
-		}
-	}
-`;
-
-const Projects = () => {
-	const {loading, error, data} = useQuery(GET_PROJECTS);
-
-	if (loading) return <p>...loading</p>;
-	if (error) return <p>Error :</p>;
-
-	console.log(data);
+const Projects = ({projects}) => {
+	console.log(projects);
 	return (
 		<div>
 			<Head>
@@ -31,16 +18,39 @@ const Projects = () => {
 				content="NextJS and React development, programming"
 			/>
 			<h1>Here will go list of projects</h1>
-			{data.projects.map((el, idx) => (
-				<div key={idx}>
-					<h2>{el.title}</h2>
-					<p>{el.id}</p>
-				</div>
-			))}
+			<div className={styles.grid}>
+				{projects.map((el, idx) => (
+					<div className={styles.card} key={idx}>
+						<h2>{el.title}</h2>
+						<p>{el.id}</p>
+					</div>
+				))}
+			</div>
 		</div>
 	);
 };
+export async function getStaticProps(context) {
+	const client = new ApolloClient({
+		uri: "https://timelysoft-backend.herokuapp.com/graphql",
+		cache: new InMemoryCache(),
+	});
 
+	const {data} = await client.query({
+		query: gql`
+			query GetProjects {
+				projects {
+					id
+					title
+				}
+			}
+		`,
+	});
 
+	return {
+		props: {
+			projects: data.projects,
+		},
+	};
+}
 
 export default Projects;
